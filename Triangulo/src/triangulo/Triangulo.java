@@ -4,10 +4,7 @@ public class Triangulo {
 	private int a, b, c;
 
 	public Triangulo(int ladoA, int ladoB, int ladoC) throws TrianguloInvalidoException {
-
-		if (ladoA < 0 || ladoB < 0 || ladoC < 0)
-			throw new TrianguloInvalidoException("Los lados deben ser números naturales");
-
+		
 		if (!esTriangulo(ladoA, ladoB, ladoC)) {
 			throw new TrianguloInvalidoException("Las medidas no forman un triangulo");
 		}
