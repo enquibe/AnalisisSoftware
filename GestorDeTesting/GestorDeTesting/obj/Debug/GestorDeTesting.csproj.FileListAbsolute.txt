@@ -1,0 +1,17 @@
+C:\Users\Manuel\Desktop\GestorDeTesting\GestorDeTesting\bin\Debug\GestorDeTesting.exe.config
+C:\Users\Manuel\Desktop\GestorDeTesting\GestorDeTesting\bin\Debug\GestorDeTesting.exe
+C:\Users\Manuel\Desktop\GestorDeTesting\GestorDeTesting\bin\Debug\GestorDeTesting.pdb
+C:\Users\Manuel\Desktop\GestorDeTesting\GestorDeTesting\obj\Debug\GestorDeTesting.csprojResolveAssemblyReference.cache
+C:\Users\Manuel\Desktop\GestorDeTesting\GestorDeTesting\obj\Debug\GestorDeTesting.Form1.resources
+C:\Users\Manuel\Desktop\GestorDeTesting\GestorDeTesting\obj\Debug\GestorDeTesting.Properties.Resources.resources
+C:\Users\Manuel\Desktop\GestorDeTesting\GestorDeTesting\obj\Debug\GestorDeTesting.csproj.GenerateResource.Cache
+C:\Users\Manuel\Desktop\GestorDeTesting\GestorDeTesting\obj\Debug\GestorDeTesting.exe
+C:\Users\Manuel\Desktop\GestorDeTesting\GestorDeTesting\obj\Debug\GestorDeTesting.pdb
+C:\Users\Kshamenk\Desktop\GestorDeTesting\GestorDeTesting\bin\Debug\GestorDeTesting.exe.config
+C:\Users\Kshamenk\Desktop\GestorDeTesting\GestorDeTesting\bin\Debug\GestorDeTesting.exe
+C:\Users\Kshamenk\Desktop\GestorDeTesting\GestorDeTesting\bin\Debug\GestorDeTesting.pdb
+C:\Users\Kshamenk\Desktop\GestorDeTesting\GestorDeTesting\obj\Debug\GestorDeTesting.Form1.resources
+C:\Users\Kshamenk\Desktop\GestorDeTesting\GestorDeTesting\obj\Debug\GestorDeTesting.Properties.Resources.resources
+C:\Users\Kshamenk\Desktop\GestorDeTesting\GestorDeTesting\obj\Debug\GestorDeTesting.csproj.GenerateResource.Cache
+C:\Users\Kshamenk\Desktop\GestorDeTesting\GestorDeTesting\obj\Debug\GestorDeTesting.exe
+C:\Users\Kshamenk\Desktop\GestorDeTesting\GestorDeTesting\obj\Debug\GestorDeTesting.pdb
