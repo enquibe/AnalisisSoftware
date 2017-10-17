@@ -6,3 +6,4 @@ C:\Users\Kshamenk\Desktop\GestorDeTesting\GestorDeTesting\obj\Release\GestorDeTe
 C:\Users\Kshamenk\Desktop\GestorDeTesting\GestorDeTesting\obj\Release\GestorDeTesting.csproj.GenerateResource.Cache
 C:\Users\Kshamenk\Desktop\GestorDeTesting\GestorDeTesting\obj\Release\GestorDeTesting.exe
 C:\Users\Kshamenk\Desktop\GestorDeTesting\GestorDeTesting\obj\Release\GestorDeTesting.pdb
+C:\Users\Kshamenk\Desktop\GestorDeTesting\GestorDeTesting\obj\Release\GestorDeTesting.csprojResolveAssemblyReference.cache

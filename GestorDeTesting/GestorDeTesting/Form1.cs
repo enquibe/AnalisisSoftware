@@ -107,9 +107,16 @@ namespace GestorDeTesting
         }
         private List<Metodo> obtenerMetodos(String[] lineasArchivo)
         {
-            string regexp = "^\\s*(public|private|protected|public static){1}\\s+(void|int|double|boolean|float|char|([A-Z]{1}[a-z]*)*){1}\\s+([a-z]*([A-Z]{1}[a-z]*)*)\\s*\\({1}.*";
+            //string regexp = "^\\s*(public|private|protected|public static){1}\\s+(void|int|double|boolean|float|char|([A-Z]{1}[a-z]*)*){1}\\s+([a-z]*([A-Z]{1}[a-z]*)*)\\s*\\({1}.*";
+            string regexp = "((public|private|protected|static|final|native|synchronized|abstract|transient)+\\s)+[\\$_\\w\\<\\>\\[\\]]*\\s+[\\$_\\w]+\\([^\\)]*\\)?\\s*\\{?[^\\}]*\\}?";
+            string ctorRegExp = "(public|protected|private|static|\\s)\\s+(\\w+) *\\([^\\)]*\\) *(\\{?|[^;])";
+
             Regex p = new Regex(regexp, RegexOptions.IgnoreCase);
             Match m;
+
+            Regex p2 = new Regex(ctorRegExp, RegexOptions.IgnoreCase);
+            Match m2;
+
             List<Metodo> metodos = new List<Metodo>();
             bool enComentarioMultilinea = false;
             bool enMetodo = false;
@@ -125,7 +132,16 @@ namespace GestorDeTesting
 
 
                 m = p.Match(lineasArchivo[j]);
+                m2 = p2.Match(lineasArchivo[j]);
                 if (m.Success && !enMetodo &&
+                        !enComentarioMultilinea &&
+                        !enComillas)
+                {
+                    enMetodo = true;
+                    Console.WriteLine("Metodo Encontrado" + lineasArchivo[j]);
+                    indiceComienzoMetodo = j;
+                }
+                else if (m2.Success && !enMetodo &&
                         !enComentarioMultilinea &&
                         !enComillas)
                 {
@@ -339,14 +355,19 @@ namespace GestorDeTesting
                                    medidasHalstead.getCantidadOperandos() +
                                    " )";
                 lblVolumen.Text = medidasHalstead.getVolumen().ToString();
-                string operadores = "| ";
+                string operadores = "";
                 foreach(string operador in medidasHalstead.getOperadores()) {
-                    operadores += operador.ToString();
-                    operadores += " | ";
+                    if (operador == "&&")
+                        operadores += "&&&&";
+                    else
+                        operadores += operador.ToString();
+
+                    operadores += " , ";
                 }
                 lblOperadores.Text = operadores;
             }
         }
+
 
         public int calcularComplejidadCiclomatica(List<String> lineasArchivo)
         {
@@ -366,17 +387,56 @@ namespace GestorDeTesting
                 m = p.Match(linea);
                 if (m.Success)
                 {
-                    foreach (String palabra in keywords)
+                    string regexp2 = ".*(&&|\\|\\|).*";
+                    p = new Regex(regexp2, RegexOptions.IgnoreCase);
+                    m = p.Match(linea);
+                    if (!m.Success)
                     {
-                        cantidad = (linea.Length - linea.Replace(palabra, "").Length) / palabra.Length;
-                        if (cantidad > 0)
+                        foreach (String palabra in keywords)
                         {
-                            CC += cantidad;
-                            Console.WriteLine(cantidad + " " + palabra + " encontrado/s.");
+                            cantidad = (linea.Length - linea.SafeReplace(palabra, "", true).Length) / palabra.Length;
+                            if (cantidad > 0)
+                            {
+                                CC += cantidad;
+                                Console.WriteLine(cantidad + " " + palabra + " encontrado/s.");
+                            }
                         }
                     }
+                    else
+                    {
+                        foreach (String simbolo in condiciones)
+                        {
+                            cantidad = (linea.Length - linea.Replace(simbolo, "").Length) / simbolo.Length;
+                            if (cantidad > 0)
+                            {
+                                CC += cantidad;
+                                Console.WriteLine(cantidad + " " + simbolo + " encontrado/s.");
+                            }
+                        }
+                        CC += 1;
+                    }
                 }
-                string regexp2 = ".*(&&|\\|\\|).*";
+                else
+                {
+                    string regexp2 = ".*(&&|\\|\\|).*";
+                    p = new Regex(regexp2, RegexOptions.IgnoreCase);
+                    m = p.Match(linea);
+                    if (m.Success)
+                    {
+                        foreach (String simbolo in condiciones)
+                        {
+                            cantidad = (linea.Length - linea.Replace(simbolo, "").Length) / simbolo.Length;
+                            if (cantidad > 0)
+                            {
+                                CC += cantidad;
+                                Console.WriteLine(cantidad + " " + simbolo + " encontrado/s.");
+                            }
+                        }
+                        CC += 1;
+                    }
+                }
+
+                /*string regexp2 = ".*(&&|\\|\\|).*";
                 p = new Regex(regexp2, RegexOptions.IgnoreCase);
                 m = p.Match(linea);
                 if (m.Success)
@@ -386,11 +446,11 @@ namespace GestorDeTesting
                         cantidad = (linea.Length - linea.Replace(simbolo, "").Length) / simbolo.Length;
                         if (cantidad > 0)
                         {
-                            CC += cantidad;
+                            CC += cantidad + 1;
                             Console.WriteLine(cantidad + " " + simbolo + " encontrado/s.");
                         }
                     }
-                }
+                }*/
             }
             return CC;
         }
@@ -757,22 +817,22 @@ namespace GestorDeTesting
                     "<html>" +
                     "<head>" +
                     "<style>" +
-                    "body {background-color: #8cb8ff;}" +
+                    // "body {background-color: #8cb8ff;}" +
                     "h1 {font-weight: bold; text-decoration: underline;}" +
                     "h3 {font-weight: bold;}" +
-                    "p {color: white;}" +
+                    // "p {color: white;}" +
                     "</style>" +
                     "</head>" +
                     "<body>" +
                     "<h1>Archivo: " + clase.GetNombreClase() + "</h1>" +
                     "<h1>Metodo: " + metodo.ToString() + "</h1>" +
-                    "<h3>Lineas con comentarios: <p>" + this.lblComentarios.Text + "</p></h3>" +
-                    "<h3>Complejidad ciclomatica: <p>" + this.lblCiclomatica.Text + "</p></h3>" +
-                    "<h3>Fan In: <p>" + this.lblFanIn.Text + "</p></h3>" +
-                    "<h3>Fan Out: <p>" + this.lblFanOut.Text + "</p></h3>" +
-                    "<h3>Longitud: <p>" + this.lblLongitud.Text + "</p></h3>" +
-                    "<h3>Volumen: <p>" + this.lblVolumen.Text + "</p></h3>" +
-                    "<h3>Operadores: <p>" + this.lblOperadores.Text + "</p></h3>" +
+                    "<h3>Lineas con comentarios:</h3> <p>" + this.lblComentarios.Text + "</p>" +
+                    "<h3>Complejidad ciclomatica:</h3> <p>" + this.lblCiclomatica.Text + "</p>" +
+                    "<h3>Fan In:</h3> <p>" + this.lblFanIn.Text + "</p>" +
+                    "<h3>Fan Out:</h3> <p>" + this.lblFanOut.Text + "</p>" +
+                    "<h3>Longitud:</h3> <p>" + this.lblLongitud.Text + "</p>" +
+                    "<h3>Volumen:</h3> <p>" + this.lblVolumen.Text + "</p>" +
+                    "<h3>Operadores:</h3> <p>" + this.lblOperadores.Text + "</p>" +
                     "</body>" +
                     "</html>";
 
@@ -788,4 +848,14 @@ namespace GestorDeTesting
             }
         }
     }
+
+    public static class StringExtensions
+    {
+        public static string SafeReplace(this string input, string find, string replace, bool matchWholeWord)
+        {
+            string textToFind = matchWholeWord ? string.Format(@"\b{0}\b", find) : find;
+            return Regex.Replace(input, textToFind, replace);
+        }
+    }
+
 }
