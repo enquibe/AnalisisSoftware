@@ -18,7 +18,8 @@ namespace GestorDeTesting
     public partial class Form1 : Form
     {
 
-        private List<Clase> clases;
+        //private List<Clase> clases;
+        private List<Archivo> archivos;
 
         public Form1()
         {
@@ -35,22 +36,39 @@ namespace GestorDeTesting
             {
                 this.clearScreen();
                 string[] files = Directory.GetFiles(fdBrowserDialog.SelectedPath);
-                this.clases = new List<Clase>();
+                //this.clases = new List<Clase>();
+                this.archivos = new List<Archivo>();
                 foreach (var item in files)
                 {
                     if (Path.GetExtension(item) == ".java")
                     {
-                        string codigo = File.ReadAllText(item);
+                        /*string codigo = File.ReadAllText(item);
                         codigo.Replace('\t', ' ');
                         codigo.Replace('\r', ' ');
                         string[] lineas = codigo.Split('\n');
                         List<Metodo> metodos = obtenerMetodos(lineas);
-                        this.clases.Add(new Clase(metodos,Path.GetFileName(item)));
+                        this.clases.Add(new Clase(metodos,Path.GetFileName(item)));*/
+                        this.archivos.Add(new Archivo(item));
                     }
                 }
 
-                if(this.clases.Count != 0)
+                //listBox3.SelectedIndex = 0;
+                this.listBox1.DisplayMember = "Nombre";
+                if (this.archivos.Count != 0)
                 {
+
+                    if (listBox3.Items.Count > 0)
+                    {
+                        for (int i = listBox3.Items.Count - 1; i >= 0; i--)
+                        {
+                            listBox3.Items.RemoveAt(i);
+                        }
+                    }
+                    foreach (Archivo archivo in this.archivos)
+                    {
+                        listBox3.Items.Add(archivo);
+                    }
+
                     if (listBox2.Items.Count > 0)
                     {
                         for (int i = listBox2.Items.Count - 1; i >= 0; i--)
@@ -58,22 +76,7 @@ namespace GestorDeTesting
                             listBox2.Items.RemoveAt(i);
                         }
                     }
-                    foreach (Clase clase in this.clases)
-                    {
-                        listBox2.Items.Add(clase);
-                    }
-
-                    if (listBox1.Items.Count > 0)
-                    {
-                        for (int i = listBox1.Items.Count - 1; i >= 0; i--)
-                        {
-                            listBox1.Items.RemoveAt(i);
-                        }
-                    }
-                    foreach (Metodo metodo in clases[0].GetMetodos())
-                    {
-                        listBox1.Items.Add(metodo);
-                    }
+               
                 }
 
                 // string filename = "";
@@ -105,6 +108,7 @@ namespace GestorDeTesting
             }
 
         }
+
         private List<Metodo> obtenerMetodos(String[] lineasArchivo)
         {
             //string regexp = "^\\s*(public|private|protected|public static){1}\\s+(void|int|double|boolean|float|char|([A-Z]{1}[a-z]*)*){1}\\s+([a-z]*([A-Z]{1}[a-z]*)*)\\s*\\({1}.*";
@@ -141,14 +145,14 @@ namespace GestorDeTesting
                     Console.WriteLine("Metodo Encontrado" + lineasArchivo[j]);
                     indiceComienzoMetodo = j;
                 }
-                else if (m2.Success && !enMetodo &&
+                /*else if (m2.Success && !enMetodo &&
                         !enComentarioMultilinea &&
                         !enComillas)
                 {
                     enMetodo = true;
                     Console.WriteLine("Metodo Encontrado" + lineasArchivo[j]);
                     indiceComienzoMetodo = j;
-                }
+                }*/
 
                 if (enMetodo)
                 {
@@ -319,16 +323,20 @@ namespace GestorDeTesting
         private void cambioMetodoSeleccionado(object sender, EventArgs e)
         {
             Metodo metodo = (Metodo)listBox1.SelectedItem;
+
             List<Metodo> metodosTotales = new List<Metodo>();
             foreach (Metodo item in listBox1.Items)
             {
                 metodosTotales.Add(item);
             }
-            richTextBox1.Clear();
+            //richTextBox1.Clear();
+            this.txtCodigo.ResetText();
             if (metodo != null)
             {
-                for (int i = 0; i < metodo.obtenerCantidadLineas(); i++)
-                    richTextBox1.AppendText(metodo.obtenerLinea(i) + "\n");
+                /*for (int i = 0; i < metodo.obtenerCantidadLineas(); i++)
+                    richTextBox1.AppendText(metodo.obtenerLinea(i) + "\n");*/
+                //richTextBox1.AppendText(metodo.ToString());
+                this.txtCodigo.Text = metodo.getCodigoToPrint();
             }
             if (metodo != null)
             {
@@ -668,7 +676,7 @@ namespace GestorDeTesting
                                 {
                                     if (aux1 == operadores[i])
                                     {
-                                        if (!indicesYaIncluidos.Contains(j - 1))
+                                        if (j!=0 && !indicesYaIncluidos.Contains(j - 1))
                                         {
                                             setOperandos.Add(aux[j - 1].Contains('(') ? aux[j - 1].Split('(')[1] : aux[j - 1]);
                                             cantidadOperandos++;
@@ -755,8 +763,16 @@ namespace GestorDeTesting
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.listBox1.DisplayMember = "nombreMetodo";
             this.clearScreen();
-            Clase clase = (Clase)listBox2.SelectedItem;
+            this.listBox1.Items.Clear();
+            var selectedItem = this.listBox2.SelectedItem as Clase;
+            if (selectedItem == null)
+                return;
+            foreach (var metodo in selectedItem.Metodos)
+                this.listBox1.Items.Add(metodo); 
+
+            /*Clase clase = (Clase)listBox2.SelectedItem;
             if (clase != null)
             {
                 if (listBox1.Items.Count > 0)
@@ -766,16 +782,17 @@ namespace GestorDeTesting
                         listBox1.Items.RemoveAt(i);
                     }
                 }
-                foreach (Metodo metodo in clase.GetMetodos())
+                foreach (Metodo metodo in clase.Metodos)
                 {
                     listBox1.Items.Add(metodo);
                 }
-            }
+            }*/
         }
 
         private void clearScreen()
         {
             this.richTextBox1.Clear();
+            this.txtCodigo.ResetText();
             this.lblCiclomatica.Text = "";
             this.lblComentarios.Text = "";
             this.lblFanIn.Text = "";
@@ -824,7 +841,7 @@ namespace GestorDeTesting
                     "</style>" +
                     "</head>" +
                     "<body>" +
-                    "<h1>Archivo: " + clase.GetNombreClase() + "</h1>" +
+                    "<h1>Archivo: " + clase.Nombre + "</h1>" +
                     "<h1>Metodo: " + metodo.ToString() + "</h1>" +
                     "<h3>Lineas con comentarios:</h3> <p>" + this.lblComentarios.Text + "</p>" +
                     "<h3>Complejidad ciclomatica:</h3> <p>" + this.lblCiclomatica.Text + "</p>" +
@@ -840,12 +857,36 @@ namespace GestorDeTesting
                 {
                     writer.Write(textToAdd);
                 }
-                MessageBox.Show("Informe generado correctamente", "Informe");
+                System.Diagnostics.Process.Start(fileName);
+                // MessageBox.Show("Informe generado correctamente", "Informe");
             }
             else
             {
                 MessageBox.Show("Eliga una clase y método primero", "Error");
             }
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.listBox2.DisplayMember = "Nombre";
+            this.listBox2.Items.Clear();
+            this.listBox1.Items.Clear();
+            this.clearScreen();
+            var selectedItem = this.listBox3.SelectedItem as Archivo;
+            if (selectedItem == null)
+                return;
+            foreach (var clase in selectedItem.Clases.Values)
+                this.listBox2.Items.Add(clase);            
+        }
+
+        private void groupBox4_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 

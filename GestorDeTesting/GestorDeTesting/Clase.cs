@@ -6,33 +6,69 @@ using System.Threading.Tasks;
 
 namespace GestorDeTesting
 {
-    class Clase
+    public class Clase
     {
+        public Archivo Archivo;
 
-        private string nombreClase;
-        private List<Metodo> metodos;
+        public string Nombre { get; private set; }
+        public string Firma { get; private set; }
+        public List<Metodo> Metodos { get; set; }
 
-        public string GetNombreClase()
+        public Clase(Archivo archivo)
         {
-            return nombreClase;
+            this.Archivo = archivo;
+            this.Metodos = new List<Metodo>();
         }
 
-        public override String ToString() { return GetNombreClase(); }
-
-        public List<Metodo> GetMetodos()
+        internal void Procesar(List<string> lineas)
         {
-            return metodos;
+            // Empieza una clase
+            this.Firma = lineas[0];
+            // Limpiar extends de la firma
+            var indexExtends = this.Firma.IndexOf(" extends ");
+            var firmaSinExtends = indexExtends < 0
+                ? this.Firma
+                : this.Firma.Substring(0, indexExtends);
+            // Obtener nombre de la clase
+            this.Nombre = firmaSinExtends.Substring(firmaSinExtends.LastIndexOf(" ") + 1);
+
+            string linea;
+            int contadorLlaves = 0;
+            do
+            {
+                // Borrar primer linea
+                lineas.RemoveAt(0);
+                linea = lineas[0];
+                switch (linea)
+                {
+                    case "{":
+                        contadorLlaves++;
+                        break;
+                    case "}":
+                        contadorLlaves--;
+                        break;
+                    default:
+                        // procesar linea de la clase
+                        if (linea.EndsWith(")") || linea.Replace(" ", "").EndsWith(")throwsException"))
+                        {
+                            // Metodo
+                            var metodo = new Metodo(this);
+                            metodo.Procesar(lineas);
+                            this.Metodos.Add(metodo);
+                        }
+                        break;
+                }
+            } while (contadorLlaves != 0);
         }
 
-        public Clase()
+        public override string ToString()
         {
-            this.metodos = new List<Metodo>();
-        }
-
-        public Clase(List<Metodo> metodos, string nombreClase)
-        {
-            this.metodos = metodos;
-            this.nombreClase = nombreClase;
+            var sb = new StringBuilder();
+            sb.AppendLine(this.Firma);
+            sb.AppendLine("{");
+            this.Metodos.ForEach(x => sb.AppendLine(x.ToString()));
+            sb.AppendLine("}");
+            return sb.ToString();
         }
     }
 }
