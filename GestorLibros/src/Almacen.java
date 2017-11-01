@@ -34,6 +34,7 @@ public class Almacen {
 	}
 	
 	public List<Libro> get() {
+		Constantes.log.append(Constantes.gestorUsuarios.getLoggedUser().getUsuario() + "@Obtenido libros");
 		return libros;
 	}
 	
@@ -43,10 +44,12 @@ public class Almacen {
 	
 	public void agregar(Libro libro) {
 		libros.add(libro);
+		Constantes.log.append(Constantes.gestorUsuarios.getLoggedUser().getUsuario() + "@Agregado libro" + libro.getLibro());
 	}
 	
 	public void eliminar(Libro libro) {
 		libros.remove(libro);
+		Constantes.log.append(Constantes.gestorUsuarios.getLoggedUser().getUsuario() + "@Eliminado libro" + libro.getLibro());
 	}
 	
 	public boolean estaVacio() {
@@ -54,10 +57,12 @@ public class Almacen {
 	}
 	
 	public void ordenar() {
+		Constantes.log.append(Constantes.gestorUsuarios.getLoggedUser().getUsuario() + "@Ordenada la lista de libros");
 		Collections.sort(libros);
 	}
 
 	public void guardar() {
+		Constantes.log.append(Constantes.gestorUsuarios.getLoggedUser().getUsuario() + "@Actualizado el archivo de libros");
 		try (ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(NOMBRE_ARCHIVO))) {
 			for (Object objeto : libros)
 				stream.writeObject(objeto);

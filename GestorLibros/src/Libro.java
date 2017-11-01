@@ -24,11 +24,18 @@ class Libro implements Comparable<Libro>, Serializable {
 		return ISBN.compareTo(libro.ISBN);
 	}
 
-	@Override
-	public String toString() {
+	public String getLibro() {
 		return "ISBN               : " + ISBN + "\n" + "titulo             : " + titulo + "\n" + "autor              : "
 				+ autor + "\n" + "editorial          : " + editorial + "\n" + "edicion            : " + edicion + "\n"
 				+ "anno de publicacion: " + anno_de_publicacion + "\n";
+	}
+	
+	@Override
+	public String toString() {
+		return "[" + ISBN + "] - " + titulo;
+		/*return "ISBN               : " + ISBN + "\n" + "titulo             : " + titulo + "\n" + "autor              : "
+				+ autor + "\n" + "editorial          : " + editorial + "\n" + "edicion            : " + edicion + "\n"
+				+ "anno de publicacion: " + anno_de_publicacion + "\n";*/
 	}
 
 	public String getISBN() {
