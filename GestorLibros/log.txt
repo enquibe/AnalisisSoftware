@@ -8,3 +8,21 @@ anno de publicacion: 2016
 
 kshamenk@Actualizado el archivo de libros
 kshamenk@Actualizado el archivo de libros
+Quique@Modificado el libro ISBN               : 1234567890123
+titulo             : Libro 1
+autor              : Jorge y Juan
+editorial          : Planeta editorial
+edicion            : 5
+anno de publicacion: 2016
+
+Quique@Actualizado el archivo de libros
+Quique@Actualizado el archivo de libros
+Quique@Actualizado el archivo de libros
+Quique@Actualizado el archivo de libros
+Quique@Actualizado el archivo de libros
+Quique@Actualizado el archivo de libros
+Admin@Actualizado el archivo de libros
+Admin@Actualizado el archivo de libros
+Quique@Actualizado el archivo de libros
+Admin@Actualizado el archivo de libros
+Quique@Actualizado el archivo de libros

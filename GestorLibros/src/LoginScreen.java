@@ -103,16 +103,6 @@ public class LoginScreen extends JFrame{
 		btnSalir.setBounds(359, 381, 157, 43);
 		panel.add(btnSalir);
 		
-		JButton btnRegistrarse = new JButton("Registrarse");
-		btnRegistrarse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegistrarUsuarios registrarUsuario = new RegistrarUsuarios();
-				registrarUsuario.setVisible(true);
-			}
-		});
-		btnRegistrarse.setBounds(176, 320, 157, 43);
-		panel.add(btnRegistrarse);
-		
 		txtUsuario = new JTextField();
 		txtUsuario.setBounds(176, 142, 157, 30);
 		panel.add(txtUsuario);

@@ -22,4 +22,9 @@ public class Usuario {
 	public String getContrasenia() {
 		return contrasenia;
 	}
+	
+	// TODO: Usar archivo de configuración al instalar? 
+	public boolean esAdministrador() {
+		return usuario.equals("Admin") && contrasenia.equals("Admin");
+	}
 }

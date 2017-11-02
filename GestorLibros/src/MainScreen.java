@@ -39,7 +39,7 @@ public class MainScreen extends JFrame {
 	public MainScreen() {
 		setTitle("Gestor de Libros");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 513, 498);
+		setBounds(100, 100, 513, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -128,6 +128,18 @@ public class MainScreen extends JFrame {
 		});
 		btnOrdenarRegistros.setBounds(175, 370, 157, 43);
 		contentPane.add(btnOrdenarRegistros);
+		
+		if (Constantes.gestorUsuarios.getLoggedUser().esAdministrador()) {
+			JButton btnRegistrarse = new JButton("Registrar Usuario");
+			btnRegistrarse.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					RegistrarUsuarios registrarUsuario = new RegistrarUsuarios();
+					registrarUsuario.setVisible(true);
+				}
+			});
+			btnRegistrarse.setBounds(175, 425, 157, 43);
+			contentPane.add(btnRegistrarse);
+		}
 	}
 
 }
