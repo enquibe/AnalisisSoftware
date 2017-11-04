@@ -99,37 +99,7 @@ public class AltaScreen extends JFrame {
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {	
-					if(!FuncionesComunes.isDouble(txtISBN.getText()) || txtISBN.getText().length() != 13 || Double.parseDouble(txtISBN.getText()) < 0)
-						throw new Exception("ISBN inválido");
-					
-					Optional<Libro> dato = Almacen.instancia.get(txtISBN.getText());
-					if (dato.isPresent())
-						throw new Exception("El registro ya existe");
-					
-					if(txtTitulo.getText().length()<=0)
-						throw new Exception("Ingrese un título");
-					
-					if(txtAutor.getText().length()<=0)
-						throw new Exception("Ingrese un Autor");
-					
-					if(txtEditorial.getText().length()<=0)
-						throw new Exception("Ingrese una editorial");
-					
-					if(!FuncionesComunes.isInteger(txtEdicion.getText()) || Integer.parseInt(txtEdicion.getText()) < 1 || Integer.parseInt(txtEdicion.getText()) > Integer.MAX_VALUE)
-						throw new Exception("Edición inválida");
-					
-					if(!FuncionesComunes.isInteger(txtPublicacion.getText()) || Integer.parseInt(txtPublicacion.getText()) < 1500)
-						throw new Exception("Año de publicación inválido");
-						
-					Libro nuevoLibro = new Libro();
-					nuevoLibro.setISBN(txtISBN.getText());
-					nuevoLibro.setTitulo(txtTitulo.getText());
-					nuevoLibro.setAutor(txtAutor.getText());
-					nuevoLibro.setEditorial(txtEditorial.getText());
-					nuevoLibro.setEdicion(Integer.parseInt(txtEdicion.getText()));
-					nuevoLibro.setAnno_de_publicacion(Integer.parseInt(txtPublicacion.getText()));
-					Almacen.instancia.agregar(nuevoLibro);
-					Almacen.instancia.guardar();
+					guardar();
 					JOptionPane.showMessageDialog(null, "Registro agregado correctamente", "Info", JOptionPane.INFORMATION_MESSAGE);
 				}catch(Exception ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -172,6 +142,40 @@ public class AltaScreen extends JFrame {
 		txtEdicion.setColumns(10);
 		txtEdicion.setBounds(95, 350, 300, 30);
 		contentPane.add(txtEdicion);
+	}
+	
+	private void guardar() throws Exception {
+		if(!FuncionesComunes.isDouble(txtISBN.getText()) || txtISBN.getText().length() != 13 || Double.parseDouble(txtISBN.getText()) < 0)
+			throw new Exception("ISBN inválido");
+		
+		Optional<Libro> dato = Almacen.instancia.get(txtISBN.getText());
+		if (dato.isPresent())
+			throw new Exception("El registro ya existe");
+		
+		if(txtTitulo.getText().length()<=0)
+			throw new Exception("Ingrese un título");
+		
+		if(txtAutor.getText().length()<=0)
+			throw new Exception("Ingrese un Autor");
+		
+		if(txtEditorial.getText().length()<=0)
+			throw new Exception("Ingrese una editorial");
+		
+		if(!FuncionesComunes.isInteger(txtEdicion.getText()) || Integer.parseInt(txtEdicion.getText()) < 1 || Integer.parseInt(txtEdicion.getText()) > Integer.MAX_VALUE)
+			throw new Exception("Edición inválida");
+		
+		if(!FuncionesComunes.isInteger(txtPublicacion.getText()) || Integer.parseInt(txtPublicacion.getText()) < 1500)
+			throw new Exception("Año de publicación inválido");
+			
+		Libro nuevoLibro = new Libro();
+		nuevoLibro.setISBN(txtISBN.getText());
+		nuevoLibro.setTitulo(txtTitulo.getText());
+		nuevoLibro.setAutor(txtAutor.getText());
+		nuevoLibro.setEditorial(txtEditorial.getText());
+		nuevoLibro.setEdicion(Integer.parseInt(txtEdicion.getText()));
+		nuevoLibro.setAnno_de_publicacion(Integer.parseInt(txtPublicacion.getText()));
+		Almacen.instancia.agregar(nuevoLibro);
+		Almacen.instancia.guardar();
 	}
 
 }
