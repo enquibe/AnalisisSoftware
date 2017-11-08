@@ -102,20 +102,7 @@ public class BajaLibros extends JFrame {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (Almacen.instancia.estaVacio())
-						throw new Exception("No hay registros");
-					
-					if(!FuncionesComunes.isDouble(txtISBN.getText()) || txtISBN.getText().length() != 13 || Double.parseDouble(txtISBN.getText()) < 0)
-						throw new Exception("ISBN inválido");
-					
-					Optional<Libro> dato = Almacen.instancia.get(txtISBN.getText());
-					if (!dato.isPresent())
-						throw new Exception("Registro no encontrado");
-										
-					
-					txtViewLibro.setText(dato.get().getLibro());
-					tmpISBN = dato.get();
-					
+					buscarLibro();
 				}catch(Exception ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
@@ -132,18 +119,71 @@ public class BajaLibros extends JFrame {
 		JButton btnBorrar = new JButton("Borrar");
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tmpISBN != null) {
-					Almacen.instancia.eliminar(tmpISBN);
-					Almacen.instancia.guardar();
-					tmpISBN = null;
-					txtViewLibro.setText("");
-					JOptionPane.showMessageDialog(null,"Registro borrado correctamente", "Error", JOptionPane.ERROR_MESSAGE);
+				try {
+					borrarLibro();
+				}catch(Exception ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
+
 		});
 		btnBorrar.setBounds(22, 277, 117, 29);
 		contentPane.add(btnBorrar);
 		setLocationRelativeTo(null);
 		
+	}
+	
+	private void borrarLibro() throws Exception{
+		// Verifica que el ISBN ingresado
+		// este correctamente seleccionado
+		if(tmpISBN != null) {
+			try {
+				// Elimina el ISBN del Almacen 
+				Almacen.instancia.eliminar(tmpISBN);
+				
+				// Actualiza el archivo del almacen 
+				Almacen.instancia.guardar();
+				
+				tmpISBN = null;
+				txtViewLibro.setText("");
+				
+				// Muestra el mensaje correspondiente
+				// a la correcta eliminación del registro
+				JOptionPane.showMessageDialog(null,"Registro borrado correctamente", "Error", JOptionPane.ERROR_MESSAGE);
+			}catch(Exception ex) {
+				// Guarda el error en el log
+				Constantes.log.append(Constantes.gestorUsuarios.getLoggedUser().getUsuario() + "@Error borrando el Libro seleccionado::" + ex.getMessage());
+				
+				// Lanza la excepción
+				throw new Exception("Error borrando el Libro seleccionado");
+			}
+		}else {
+			// Si el ISBN que se busco no es válido
+			// lanza la excepción correspondiente
+			throw new Exception("Ingrese un ISBN primero");
+		}
+	}
+	
+	private void buscarLibro() throws Exception {
+		// Verifica que el Almacen no este vacío
+		// y en caso contrario, lanza una excepción
+		if (Almacen.instancia.estaVacio())
+			throw new Exception("No hay registros");
+		
+		// Verifica que el ISBN sea correcto
+		// y en caso contrario, lanza una excepción
+		if(!FuncionesComunes.isDouble(txtISBN.getText()) || txtISBN.getText().length() != 13 || Double.parseDouble(txtISBN.getText()) < 0)
+			throw new Exception("ISBN inválido");
+
+		// Busca el libro en el almacen para proceder a eliminarlo
+		// si no lo encuentra, lanza una excepción
+		Optional<Libro> dato = Almacen.instancia.get(txtISBN.getText());
+		if (!dato.isPresent())
+			throw new Exception("Registro no encontrado");
+							
+		// Muestra el libro y habilita 
+		// el botón de borrar
+		txtViewLibro.setText(dato.get().getLibro());
+		tmpISBN = dato.get();
 	}
 }

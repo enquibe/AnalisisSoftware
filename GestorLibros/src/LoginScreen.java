@@ -67,6 +67,7 @@ public class LoginScreen extends JFrame{
 		panel.add(label);
 		
 		JButton btnIniciarSesin = new JButton("Iniciar sesión");
+		btnIniciarSesin.setToolTipText("Verificar los datos e Iniciar sesión");
 		btnIniciarSesin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -95,6 +96,7 @@ public class LoginScreen extends JFrame{
 		panel.add(btnIniciarSesin);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.setToolTipText("Salir de la aplicación");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -104,6 +106,7 @@ public class LoginScreen extends JFrame{
 		panel.add(btnSalir);
 		
 		txtUsuario = new JTextField();
+		txtUsuario.setToolTipText("Ingrese el nombre de usuario aquí");
 		txtUsuario.setBounds(176, 142, 157, 30);
 		panel.add(txtUsuario);
 		txtUsuario.setColumns(10);
@@ -117,6 +120,7 @@ public class LoginScreen extends JFrame{
 		panel.add(lblContrasea);
 		
 		txtPassword = new JPasswordField();
+		txtPassword.setToolTipText("Ingrese la contraseña del usuario aquí");
 		txtPassword.setBounds(176, 198, 157, 30);
 		panel.add(txtPassword);
 	}

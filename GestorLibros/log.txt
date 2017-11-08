@@ -53,3 +53,42 @@ anno de publicacion: 1997
 kshamenk@Actualizado el archivo de libros
 kshamenk@Ordenada la lista de libros
 kshamenk@Actualizado el archivo de libros
+kshamenk@Actualizado el archivo de libros
+Admin@Actualizado el archivo de libros
+kshamenk@Actualizado el archivo de libros
+Admin@Actualizado el archivo de libros
+kshamenk@Actualizado el archivo de libros
+kshamenk@Agregado libroISBN               : 1111111111111
+titulo             : asd
+autor              : asd
+editorial          : asd
+edicion            : 1
+anno de publicacion: 1999
+
+kshamenk@Actualizado el archivo de libros
+kshamenk@Eliminado libroISBN               : 1111111111111
+titulo             : asd
+autor              : asd
+editorial          : asd
+edicion            : 1
+anno de publicacion: 1999
+
+kshamenk@Actualizado el archivo de libros
+kshamenk@Actualizado el archivo de libros
+kshamenk@Agregado libroISBN               : 1111111111111
+titulo             : asd
+autor              : sad
+editorial          : asd
+edicion            : 22
+anno de publicacion: 2222
+
+kshamenk@Actualizado el archivo de libros
+kshamenk@Eliminado libroISBN               : 1111111111111
+titulo             : asd
+autor              : sad
+editorial          : asd
+edicion            : 22
+anno de publicacion: 2222
+
+kshamenk@Actualizado el archivo de libros
+kshamenk@Actualizado el archivo de libros

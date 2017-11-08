@@ -52,6 +52,7 @@ public class MainScreen extends JFrame {
 		contentPane.add(label);
 		
 		JButton btnAlta = new JButton("Alta");
+		btnAlta.setToolTipText("Abre la pantalla de alta de libros");
 		btnAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AltaScreen altaScreen = new AltaScreen();
@@ -62,6 +63,7 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnAlta);
 		
 		JButton btnBaja = new JButton("Baja");
+		btnBaja.setToolTipText("Abre la pantalla de baja de libros");
 		btnBaja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BajaLibros baja = new BajaLibros();
@@ -72,6 +74,7 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnBaja);
 		
 		JButton btnConsulta = new JButton("Consulta");
+		btnConsulta.setToolTipText("Consultar un libro por ISBN");
 		btnConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConsultaLibros consulta = new ConsultaLibros();
@@ -83,6 +86,7 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnConsulta);
 		
 		JButton btnModificacin = new JButton("Modificación");
+		btnModificacin.setToolTipText("Abre la pantalla de modificación de libros");
 		btnModificacin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ModificacionScreen modificacion = new ModificacionScreen();
@@ -93,6 +97,7 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnModificacin);
 		
 		JButton btnListados = new JButton("Listados");
+		btnListados.setToolTipText("Ver listado de libros en el Almacen");
 		btnListados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListadoLibros listados = new ListadoLibros();
@@ -103,6 +108,7 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnListados);
 		
 		JButton button_1 = new JButton("Salir");
+		button_1.setToolTipText("Salir de la apliación");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Almacen.instancia.guardar();
@@ -113,6 +119,7 @@ public class MainScreen extends JFrame {
 		contentPane.add(button_1);
 		
 		JButton btnOrdenarRegistros = new JButton("Ordenar registros");
+		btnOrdenarRegistros.setToolTipText("Ordenar el Almacen de libros");
 		btnOrdenarRegistros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
