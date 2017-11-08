@@ -20,7 +20,7 @@ namespace GestorDeTesting
 
         //private List<Clase> clases;
         private List<Archivo> archivos;
-
+        
         public Form1()
         {
             InitializeComponent();
@@ -340,16 +340,19 @@ namespace GestorDeTesting
             }
             if (metodo != null)
             {
+
                 // Calcular complejidad ciclomática.
                 lblCiclomatica.Text = calcularComplejidadCiclomatica(metodo.getLineasMetodo()).ToString();
+
                 // Calcular cantidad de comentarios.
                 int cantidadComentarios = calcularComentarios(metodo.getLineasMetodo());
-                lblComentarios.Text = cantidadComentarios.ToString() + 
+                lblComentarios.Text = cantidadComentarios.ToString() +
                                       "/" +
                                       metodo.obtenerCantidadLineas().ToString() +
-                                      " ( " + 
-                                      ( (float)cantidadComentarios / metodo.obtenerCantidadLineas() ).ToString() +
-                                      "% )" ;
+                                      " ( " +
+                                      ((float)cantidadComentarios / metodo.obtenerCantidadLineas()).ToString() +
+                                      "% )";
+
                 // Calcular Fan In.
                 lblFanIn.Text = calcularFanIn(metodo, metodosTotales).ToString();
                 // Calcular Fan Out.
@@ -379,6 +382,8 @@ namespace GestorDeTesting
 
         public int calcularComplejidadCiclomatica(List<String> lineasArchivo)
         {
+            bool hasThrowOrCatch = false;
+            bool enComentario = false;
             //La complejidad ciclomÃ¡tica mÃ­nima.
             int CC = 1;
             //Listado de palabras que representan un salto en el curso de decision.
@@ -388,8 +393,21 @@ namespace GestorDeTesting
 
             foreach (String linea in lineasArchivo)
             {
+                if (linea.StartsWith(@"//"))
+                    continue;
+                
+                if (linea.StartsWith(@"/*"))
+                    enComentario = true;
+
+                if (linea.EndsWith(@"*/"))
+                    enComentario = false;
+
+                if (enComentario)
+                    continue;
+
                 Console.WriteLine("Leyendo lÃ­nea " + linea);
                 string regexp = ".*\\W*(if|else|case|default|while|for|catch|throw)\\W.*";
+
                 Regex p = new Regex(regexp, RegexOptions.IgnoreCase);
                 Match m;
                 m = p.Match(linea);
@@ -405,8 +423,18 @@ namespace GestorDeTesting
                             cantidad = (linea.Length - linea.SafeReplace(palabra, "", true).Length) / palabra.Length;
                             if (cantidad > 0)
                             {
-                                CC += cantidad;
-                                Console.WriteLine(cantidad + " " + palabra + " encontrado/s.");
+
+                                if (palabra != "throw") {
+                                    if(palabra != "catch" || hasThrowOrCatch == false) {
+                                        CC += cantidad;
+                                        Console.WriteLine(cantidad + " " + palabra + " encontrado/s.");
+                                    } else {
+                                        hasThrowOrCatch = true;
+                                    }
+                                } else {
+                                    if (!hasThrowOrCatch)
+                                        hasThrowOrCatch = true;
+                                }
                             }
                         }
                     }
@@ -466,6 +494,7 @@ namespace GestorDeTesting
         public int calcularComentarios(List<String> lineasArchivo)
         {
             int cantidadLineas = 0;
+            
             // Indica si estamos en un comentario /* */
             bool enComentarioMultilinea = false;
             foreach (String linea in lineasArchivo)

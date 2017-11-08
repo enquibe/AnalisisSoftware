@@ -23,7 +23,6 @@ public class GestorUsuarios {
 				try {
 					cd = Encriptacion.Desencriptar(s);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				String[] cadena = cd.split(",");

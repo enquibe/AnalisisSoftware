@@ -26,3 +26,30 @@ Admin@Actualizado el archivo de libros
 Quique@Actualizado el archivo de libros
 Admin@Actualizado el archivo de libros
 Quique@Actualizado el archivo de libros
+kshamenk@Ordenada la lista de libros
+kshamenk@Modificado el libro ISBN               : 1234567890123
+titulo             : Libro 1
+autor              : Jorge y Juan
+editorial          : Planeta editorial
+edicion            : 5
+anno de publicacion: 2017
+
+kshamenk@Actualizado el archivo de libros
+kshamenk@Agregado libroISBN               : 9999999999999
+titulo             : Duma key
+autor              : Stephen King
+editorial          : Kells
+edicion            : 1
+anno de publicacion: 1997
+
+kshamenk@Actualizado el archivo de libros
+kshamenk@Eliminado libroISBN               : 9999999999999
+titulo             : Duma key
+autor              : Stephen King
+editorial          : Kells
+edicion            : 1
+anno de publicacion: 1997
+
+kshamenk@Actualizado el archivo de libros
+kshamenk@Ordenada la lista de libros
+kshamenk@Actualizado el archivo de libros
