@@ -144,29 +144,54 @@ public class AltaScreen extends JFrame {
 		contentPane.add(txtEdicion);
 	}
 	
+	/**
+	* Guarda un libro en el Almacen
+	* y actualiza el archivo.
+	*
+	* @return Libro guardado o Exception
+	*/
 	private void guardar() throws Exception {
+		// Verifica si el ISBN ingresado es válido, caso contrario devuelve una excepción
 		if(!FuncionesComunes.isDouble(txtISBN.getText()) || txtISBN.getText().length() != 13 || Double.parseDouble(txtISBN.getText()) < 0)
 			throw new Exception("ISBN inválido");
 		
+		// Busca en el almacen por el ISBN ingresado
+		// caso contrario devuelve una excepción
 		Optional<Libro> dato = Almacen.instancia.get(txtISBN.getText());
+		
+		// Verifica si la busqueda fue satisfactoria para informar 
+		// si el registro ya se encuentra en el Almacen
 		if (dato.isPresent())
 			throw new Exception("El registro ya existe");
 		
+		// Verifica si el título ingresado es válido
+		// caso contrario devuelve una excepción
 		if(txtTitulo.getText().length()<=0)
 			throw new Exception("Ingrese un título");
 		
+		// Verifica si el Autor ingresado es válido 
+		// caso contrario devuelve una excepción
 		if(txtAutor.getText().length()<=0)
 			throw new Exception("Ingrese un Autor");
 		
+		// Verifica si la editorial ingresado es válido 
+		// caso contrario devuelve una excepción
 		if(txtEditorial.getText().length()<=0)
 			throw new Exception("Ingrese una editorial");
 		
+		// Verifica si la Edición ingresado es válido 
+		// caso contrario devuelve una excepción
 		if(!FuncionesComunes.isInteger(txtEdicion.getText()) || Integer.parseInt(txtEdicion.getText()) < 1 || Integer.parseInt(txtEdicion.getText()) > Integer.MAX_VALUE)
 			throw new Exception("Edición inválida");
 		
+		// Verifica si el Año de publicación ingresado es válido
+		// caso contrario devuelve una excepción
 		if(!FuncionesComunes.isInteger(txtPublicacion.getText()) || Integer.parseInt(txtPublicacion.getText()) < 1500)
 			throw new Exception("Año de publicación inválido");
-			
+		
+		// Crea una nueva instancia de Libro
+		// seteando ISBN, Título, Autor, Editorial
+		// Edición y Año de Publicación
 		Libro nuevoLibro = new Libro();
 		nuevoLibro.setISBN(txtISBN.getText());
 		nuevoLibro.setTitulo(txtTitulo.getText());
@@ -174,7 +199,11 @@ public class AltaScreen extends JFrame {
 		nuevoLibro.setEditorial(txtEditorial.getText());
 		nuevoLibro.setEdicion(Integer.parseInt(txtEdicion.getText()));
 		nuevoLibro.setAnno_de_publicacion(Integer.parseInt(txtPublicacion.getText()));
+		
+		//Guarda la nueva instancia de Libro en el almacen
 		Almacen.instancia.agregar(nuevoLibro);
+		
+		//Actualiza el archivo del Almacen
 		Almacen.instancia.guardar();
 	}
 

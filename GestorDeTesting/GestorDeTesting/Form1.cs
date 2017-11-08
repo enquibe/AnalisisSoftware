@@ -345,12 +345,14 @@ namespace GestorDeTesting
                 lblCiclomatica.Text = calcularComplejidadCiclomatica(metodo.getLineasMetodo()).ToString();
 
                 // Calcular cantidad de comentarios.
+                int lineasDeCodigo = getCantidadDeLineasNoComentadas(metodo.getLineasMetodo());
                 int cantidadComentarios = calcularComentarios(metodo.getLineasMetodo());
                 lblComentarios.Text = cantidadComentarios.ToString() +
                                       "/" +
-                                      metodo.obtenerCantidadLineas().ToString() +
+                                      lineasDeCodigo.ToString() +
+                                      //metodo.obtenerCantidadLineas().ToString() +
                                       " ( " +
-                                      ((float)cantidadComentarios / metodo.obtenerCantidadLineas()).ToString() +
+                                      (((float)cantidadComentarios / lineasDeCodigo) * 100).ToString() +
                                       "% )";
 
                 // Calcular Fan In.
@@ -548,6 +550,30 @@ namespace GestorDeTesting
                 }
             }
             return cantidadLineas;
+        }
+
+        int getCantidadDeLineasNoComentadas(List<String> lineas)
+        {
+            bool enComentario = false;
+            int cLineas = 0;
+            foreach (String linea in lineas)
+            {
+                if (linea.StartsWith(@"//"))
+                    continue;
+
+                if (linea.StartsWith(@"/*"))
+                    enComentario = true;
+
+                if (linea.EndsWith(@"*/"))
+                    enComentario = false;
+
+                if (enComentario)
+                    continue;
+
+                cLineas++;
+            }
+
+            return cLineas;
         }
 
         public int calcularFanIn(Metodo metodoActual, List<Metodo> metodosTotales)
