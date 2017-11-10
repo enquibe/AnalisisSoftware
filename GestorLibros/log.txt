@@ -94,3 +94,21 @@ kshamenk@Actualizado el archivo de libros
 kshamenk@Actualizado el archivo de libros
 kshamenk@Actualizado el archivo de libros
 kshamenk@Actualizado el archivo de libros
+kshamenk@Agregado libroISBN               : 1234567890223
+titulo             : s
+autor              : s
+editorial          : 11
+edicion            : 2
+anno de publicacion: 1609
+
+kshamenk@Actualizado el archivo de libros
+kshamenk@Actualizado el archivo de libros
+kshamenk@Agregado libroISBN               : 1234567890123
+titulo             : PruebaRecuperacion
+autor              : Prueba
+editorial          : Prueba
+edicion            : 1
+anno de publicacion: 2017
+
+kshamenk@Actualizado el archivo de libros
+kshamenk@Actualizado el archivo de libros
