@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,6 +12,8 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class MainScreen extends JFrame {
@@ -115,7 +118,7 @@ public class MainScreen extends JFrame {
 				System.exit(0);
 			}
 		});
-		button_1.setBounds(350, 427, 157, 43);
+		button_1.setBounds(351, 468, 157, 43);
 		contentPane.add(button_1);
 		
 		JButton btnOrdenarRegistros = new JButton("Ordenar registros");
@@ -136,6 +139,21 @@ public class MainScreen extends JFrame {
 		btnOrdenarRegistros.setBounds(175, 370, 157, 43);
 		contentPane.add(btnOrdenarRegistros);
 		
+		JButton btnManualDeUsuario = new JButton("Manual de usuario");
+		btnManualDeUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+			        File myFile = new File("manual.pdf");
+			        Desktop.getDesktop().open(myFile);
+			    } catch (IOException ex) {
+			        // no application registered for PDFs
+			    }
+			}
+		});
+		btnManualDeUsuario.setToolTipText("Abre el manual de usuario");
+		btnManualDeUsuario.setBounds(17, 468, 157, 43);
+		contentPane.add(btnManualDeUsuario);
+		
 		if (Constantes.gestorUsuarios.getLoggedUser().esAdministrador()) {
 			JButton btnRegistrarse = new JButton("Registrar Usuario");
 			btnRegistrarse.addActionListener(new ActionListener() {
@@ -148,5 +166,4 @@ public class MainScreen extends JFrame {
 			contentPane.add(btnRegistrarse);
 		}
 	}
-
 }
