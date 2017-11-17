@@ -55,7 +55,7 @@ public class RegistrarUsuarios extends JFrame {
 	 */
 	public RegistrarUsuarios() {
 		setTitle("Registrar Usuarios");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 380, 250);
 		contentPane = new JPanel();
 		contentPane.addKeyListener(new KeyAdapter() {
