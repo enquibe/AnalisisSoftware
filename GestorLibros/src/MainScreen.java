@@ -114,8 +114,12 @@ public class MainScreen extends JFrame {
 		button_1.setToolTipText("Salir de la apliación");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Almacen.instancia.guardar();
-				System.exit(0);
+				try {
+					Almacen.instancia.guardar();
+					System.exit(0);
+				}catch(Exception ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		button_1.setBounds(351, 468, 157, 43);

@@ -8,7 +8,7 @@
 //archivoEspecializaciones: path donde se almacenaran las especializaciones disponibles para los medicos
 //archivoUsuarios: path donde se almacenaran los datos de los usuarios del sistema
 public class Constantes {
-	private static String pathArchivos = System.getProperty("user.dir");
+	private static String pathArchivos = System.getenv("APPDATA");
 	/*public static String archivoPacientes = pathArchivos + "datopac.txt";
 	public static String archivoMedicos = pathArchivos + "datomed.txt";
 	public static String archivoSituacionPaciente = pathArchivos + "situpac.txt";

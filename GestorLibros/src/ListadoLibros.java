@@ -31,7 +31,7 @@ import java.awt.event.MouseEvent;
 public class ListadoLibros extends JFrame {
 
 	private JPanel contentPane;
-	private static String listado = System.getProperty("user.dir") + "/GestorLibros/listado.txt";
+	private static String listado = System.getenv("APPDATA") + "/GestorLibros/listado.txt";
 	/**
 	 * Launch the application.
 	 */

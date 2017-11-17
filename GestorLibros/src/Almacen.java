@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Almacen {
-	private static final String NOMBRE_ARCHIVO = System.getProperty("user.home") + "/GestorLibros/datos.dat";
+	private static final String NOMBRE_ARCHIVO = System.getenv("APPDATA") + "/GestorLibros/datos.dat";
 	public static final Almacen instancia = new Almacen();
 	public final List<Libro> libros;
 
