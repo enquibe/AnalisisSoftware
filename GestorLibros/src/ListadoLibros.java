@@ -31,7 +31,7 @@ import java.awt.event.MouseEvent;
 public class ListadoLibros extends JFrame {
 
 	private JPanel contentPane;
-
+	private static String listado = System.getProperty("user.dir") + "/GestorLibros/listado.txt";
 	/**
 	 * Launch the application.
 	 */
@@ -118,7 +118,7 @@ public class ListadoLibros extends JFrame {
 	}
 	
 	public void imprimirListado() {
-		try (ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream("listado.txt"))) {
+		try (ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(listado))) {
 			for (Libro libro : Almacen.instancia.libros)
 				stream.writeChars(libro.getLibro() + '\n');
 			

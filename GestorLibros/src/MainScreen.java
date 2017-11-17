@@ -143,7 +143,7 @@ public class MainScreen extends JFrame {
 		btnManualDeUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-			        File myFile = new File("manual.pdf");
+			        File myFile = new File(Constantes.manualUsuario);
 			        Desktop.getDesktop().open(myFile);
 			    } catch (IOException ex) {
 			        // no application registered for PDFs

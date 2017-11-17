@@ -13,7 +13,8 @@ public class Constantes {
 	public static String archivoMedicos = pathArchivos + "datomed.txt";
 	public static String archivoSituacionPaciente = pathArchivos + "situpac.txt";
 	public static String archivoEspecializaciones = pathArchivos + "especializaciones.txt";*/
-	public static String archivoUsuarios = pathArchivos + "/usuarios.txt";
+	public static String archivoUsuarios = pathArchivos + "/GestorLibros/usuarios.txt";
+	public static String manualUsuario = pathArchivos + "/GestorLibros/manual.pdf";
 	public static GestorUsuarios gestorUsuarios;
 	public static Log log;
 }

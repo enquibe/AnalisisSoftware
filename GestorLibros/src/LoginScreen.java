@@ -15,6 +15,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.TextField;
 import javax.swing.JPasswordField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class LoginScreen extends JFrame{
 
@@ -106,6 +108,13 @@ public class LoginScreen extends JFrame{
 		panel.add(btnSalir);
 		
 		txtUsuario = new JTextField();
+		txtUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+					txtPassword.requestFocus();
+			}
+		});
 		txtUsuario.setToolTipText("Ingrese el nombre de usuario aquí");
 		txtUsuario.setBounds(176, 142, 157, 30);
 		panel.add(txtUsuario);
@@ -120,6 +129,13 @@ public class LoginScreen extends JFrame{
 		panel.add(lblContrasea);
 		
 		txtPassword = new JPasswordField();
+		txtPassword.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+					btnIniciarSesin.doClick();
+			}
+		});
 		txtPassword.setToolTipText("Ingrese la contraseña del usuario aquí");
 		txtPassword.setBounds(176, 198, 157, 30);
 		panel.add(txtPassword);

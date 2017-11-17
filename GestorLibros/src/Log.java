@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class Log {
 	
+	static String logFile = System.getProperty("user.dir") + "/GestorLibros/log.txt";
+	
 	/*
 	 * append(String linea)
 	 * 
@@ -15,7 +17,7 @@ public class Log {
 	 * @param linea La linea a imprimir
 	 * */
 	public void append(String linea) {
-		try(FileWriter fw = new FileWriter("log.txt", true);
+		try(FileWriter fw = new FileWriter(logFile, true);
 			    BufferedWriter bw = new BufferedWriter(fw);
 			    PrintWriter out = new PrintWriter(bw))
 		{
