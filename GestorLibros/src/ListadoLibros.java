@@ -1,11 +1,13 @@
 
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -107,8 +109,14 @@ public class ListadoLibros extends JFrame {
 		JButton button = new JButton("Imprimir");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				imprimirListado();
-				JOptionPane.showMessageDialog(null, "Listado generado", "Info", JOptionPane.INFORMATION_MESSAGE);
+				try {
+					imprimirListado();
+			        File myFile = new File(listado);
+			        Desktop.getDesktop().open(myFile);
+			    } catch (IOException ex) {
+			        // no application registered for PDFs
+			    }
+				// JOptionPane.showMessageDialog(null, "Listado generado", "Info", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		button.setBounds(48, 427, 89, 23);
